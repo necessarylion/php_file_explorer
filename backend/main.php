@@ -34,52 +34,9 @@ if( !empty($_REQUEST['do']) ){
 
 	else if( @$_POST['do'] == 'list' ){
 		clearstatcache();
-		if( !is_executable($path) ) {
-			output(false, 'Not Enough Permissions');
-		}
-		else if( is_dir($path) ) {
-			$result = array();
-			$fps = scan_dir($path, 'dirFirst');
-
-			empty($fps) && output(false, 'Directory Empty');
-
-			foreach($fps as $i => $fp) {
-				if( !$config->show_hidden && substr(basename($fp), 0, 1) == '.' ){
-					continue;
-				}
-				$ext = strtolower(pathinfo($fp, PATHINFO_EXTENSION));
-				$stat = @stat($fp);
-				$danger = in_array(realpath($fp), $deny_paths);
-				$result[] = array(
-					'sort' => $i,
-					'name' => basename($fp),
-					'path' => preg_replace('@^\./@', '', $fp),
-					'real_path' => realpath($fp),
-					'type' => function_exists('mime_content_type') ? @mime_content_type($fp) : $ext,
-					'ext' => is_dir($fp) ? '---' : $ext,
-					'size' => is_dir($fp) ? 0 : $stat['size'],
-					'perm' => '0' . decoct( @fileperms($fp) & 0777 ),
-					'ownr' => $stat['uid'],
-					'ownr_ok' => function_exists('posix_getpwuid') ? posix_getpwuid($stat['uid'])['name'] : $stat['uid'],
-					'atime' => $stat['atime'],
-					'ctime' => $stat['ctime'],
-					'mtime' => $stat['mtime'],
-					'is_dir'=> is_dir($fp),
-					'is_deletable' => is_writable($path) && !$danger && is_recursively_rdwr($fp),
-					'is_editable' => !is_dir($fp) && is_writable($fp) && !$danger && in_array($ext, $editable_files),
-					'is_writable' => is_writable($fp) && !$danger,
-					'is_readable' => is_readable($fp),
-					'is_executable' => is_executable($fp),
-					'is_recursable' => is_recursively_rdwr($fp) && !$danger,
-					'is_zipable' => is_dir($fp) && class_exists('ZipArchive') && is_recursively_rdwr($fp),
-					'is_zip' => $ext == 'zip' && class_exists('ZipArchive'),
-				);
-			}
-			output(true, $result);
-		}
-		else {
-			output(false, 'Not a Directory');
-		}
+		$aws = new App\AwsS3();
+    $files = $aws->list();
+		output(true, $files);
 	}
 
 	elseif( @$_GET['do'] == 'download' && !is_dir($real) ){

@@ -505,7 +505,7 @@ var menu_options = document.querySelector('.options');
     $modal.find('.name').text(obj.name);
     $modal.find('.path').text(originPathName.substr(0, originPathName.lastIndexOf('/')) + '/' + obj.path);
     $modal.find('.type').text(obj.type);
-    $modal.find('.size').text(obj.is_dir == 'true' ? '---' : formatFileSize(obj.size));
+    $modal.find('.size').text(obj.is_dir == 'true' ? 'Folder' : formatFileSize(obj.size));
     $modal.find('.ownr').text(obj.ownr_ok + ' (' + obj.ownr + ')');
     $modal.find('.perm').text(formatFilePerm(obj.perm, obj.is_dir == 'true') + ' (' + obj.perm + ')');
     $modal.find('.atime').text(timedate(obj.atime));
@@ -720,7 +720,7 @@ var menu_options = document.querySelector('.options');
         obj[attr.name.replace('data-', '')] = attr.value;
       }
     });
-
+    // MENU OPTIONS NOTE
     var menu = {
       open: '<a href="#' + obj.path + '" title="Open">Open</a>',
       runit: '<a href="' + obj.path + '" target="_blank" title="View">Run</a>',
@@ -782,7 +782,7 @@ var menu_options = document.querySelector('.options');
         scrollLeft: '+=5000'
       });
       if (data.flag == true && Array.isArray(data.response)) {
-        $('main').hasClass('listView') && $list.html('<div class="item tHead"><span class="tH name">Name</span><span class="tH size">Size</span><span class="tH time">Modified</span><span class="tH ownr">Owner</span></div>');
+        $('main').hasClass('listView') && $list.html('<div class="item tHead"><span class="tH name">Name</span><span class="tH size">Size</span><span class="tH time">Modified</span></div>');
         $.each(data.response, function (index, value) {
           $list.append(renderList(value));
         });
@@ -802,7 +802,7 @@ var menu_options = document.querySelector('.options');
       dataAttr['data-' + key] = value;
     });
 
-    var fileSize = data.is_dir ? '---' : formatFileSize(data.size);
+    var fileSize = data.is_dir ? 'Folder' : formatFileSize(data.size);
     $link = $('<a>')
       .addClass(data.is_dir ? 'is_dir' : 'is_file')
       .attr('href', data.is_dir ? '#' + data.path : data.path)
@@ -815,8 +815,6 @@ var menu_options = document.querySelector('.options');
         .append($('<span>').addClass('tD name').attr('data-sort', data.sort).attr('title', data.name).text(data.name).prepend($(svgIcons(data.ext)).addClass('icon')))
         .append($('<span>').addClass('tD size').attr('data-sort', data.size).attr('title', fileSize).text(fileSize))
         .append($('<span>').addClass('tD time').attr('data-sort', data.mtime).attr('title', timedate(data.mtime)).text(time_ago(data.mtime)))
-        .append($('<span>').addClass('tD perm').attr('data-sort', data.perm).attr('title', formatFilePerm(data.perm)).text(data.perm))
-        .append($('<span>').addClass('tD ownr').attr('data-ownr', data.perm).attr('title', data.ownr_ok).text(data.ownr_ok))
         .append('<svg class="more" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>');
     } else {
       $link
@@ -1084,6 +1082,9 @@ function timedate(time) {
 }
 
 function time_ago(time) {
+  if(!time) {
+    return ''
+  }
   time = Date.now() - (parseInt(time) * 1000);
   var periods = {
     'decade': 60 * 60 * 24 * 30 * 12 * 10,
