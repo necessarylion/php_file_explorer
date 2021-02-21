@@ -504,7 +504,7 @@ var menu_options = document.querySelector('.options');
     var originPathName = window.location.origin + window.location.pathname;
     $modal = $('#detailModal');
     $modal.find('.name').text(obj.name);
-    $modal.find('.path').text(originPathName.substr(0, originPathName.lastIndexOf('/')) + '/' + obj.path);
+    $modal.find('.path').text(obj.path);
     $modal.find('.type').text(obj.type);
     $modal.find('.size').text(obj.is_dir == 'true' ? 'Folder' : formatFileSize(obj.size));
     $modal.find('.ownr').text(obj.ownr_ok + ' (' + obj.ownr + ')');
