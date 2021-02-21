@@ -32,11 +32,22 @@ step 3.
 
 step 4. 
 
-if you use local storage 
+- if you use local storage 
 create storage folder 
 
 `mkdir storage`
 `sudo chmod 777 -R storage`
 
+- if you use AWS S3
+copy .env.example to .env and write credentials in .env file
+`cp .env.example .env`
 
-### Password (admin)
+AWS_KEY=
+AWS_SECRET=
+AWS_ENDPOINT=
+AWS_REGION=
+BUCKET_NAME=
+AWS_FOLDER_NAME=
+
+
+### Password : admin
