@@ -1,4 +1,14 @@
-<?php function html_editor($file){?>
+<?php 
+
+function getContent($path){
+  $aws = New App\AwsS3;
+	$response = $aws->getContent();
+  return $response;
+}
+
+function html_editor($file){
+  $content = getContent($file);
+?>
 	<!DOCTYPE html>
 	<html lang="en">
     <head>
@@ -10,7 +20,7 @@
     <body>
       <div class="overlay"></div>
       <header>
-        <label for="codedit" data-bytes="<?= @filesize($file); ?>"><?= basename($file); ?></label>
+        <label for="codedit"><?= basename($file); ?></label>
         <div class="action">
           <button type="submit" class="btn" form="editor">Save</button>
           <button class="btn flat" onclick="window.open('', '_self', '').close(); return false;">Close</button>
@@ -19,7 +29,7 @@
       <form method="POST" id="editor">
         <div class="inputs">
           <input type="hidden" id="xsrf" name="xsrf" value="<?= @$_COOKIE['__xsrf']; ?>">
-          <textarea id="codedit" name="content" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><?= htmlentities( mb_convert_encoding(getData($file), 'UTF-8', 'auto') ); ?></textarea>
+          <textarea id="codedit" name="content" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><?= htmlentities( mb_convert_encoding($content, 'UTF-8', 'auto') ); ?></textarea>
         </div>
       </form>
       <footer>

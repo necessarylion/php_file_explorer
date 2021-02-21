@@ -249,7 +249,7 @@ var menu_options = document.querySelector('.options');
   /* RENAME FILE and FOLDER
    *******************************************/
   $(document).on('click', '.rename', function (e) {
-    var path = $(this).closest('.options[data-path]').attr('data-path').trim();
+    var path = $(this).closest('.options[data-real_path]').attr('data-real_path').trim();
     var name = $(this).closest('.options[data-name]').attr('data-name').trim();
 
     modal('on', '#renameModal');
@@ -291,6 +291,8 @@ var menu_options = document.querySelector('.options');
       CLIPBOARD.push($(this).find('a[data-real_path]').attr('data-real_path').trim());
     });
 
+    !CLIPBOARD.length && CLIPBOARD.push($(this).closest('.options[data-real_path]').attr('data-real_path').trim());
+
     hide_option_menu();
     toast('Choose Copy Location', '', 'stay');
   });
@@ -302,6 +304,8 @@ var menu_options = document.querySelector('.options');
     $('main .selected').each(function () {
       CLIPBOARD.push($(this).find('a[data-real_path]').attr('data-real_path').trim());
     });
+
+    !CLIPBOARD.length && CLIPBOARD.push($(this).closest('.options[data-real_path]').attr('data-real_path').trim());
 
     hide_option_menu();
     toast('Choose Move Location', '', 'stay');
@@ -365,9 +369,6 @@ var menu_options = document.querySelector('.options');
       toast('Oh! Thanks God all is safe.');
     }
   });
-
-
-
 
   /* COMPRESS DIRECTORY
    *******************************************/
@@ -652,7 +653,15 @@ var menu_options = document.querySelector('.options');
   $(document).on('dblclick', '.item a', function (e) {
     var href = $(this).attr('href');
     if ($(this).hasClass('is_dir')) {
-      window.location.href = href;
+      var urlhash = window.location.hash; //get the hash from url
+      let url = ''; 
+      if(!urlhash) {
+        url = href;
+      }
+      else {
+        url = urlhash + '/' + href.replace("#", "");
+      }
+      window.location.href = url;
     } else {
       window.open(href, '_blank');
     }
@@ -724,8 +733,8 @@ var menu_options = document.querySelector('.options');
     var menu = {
       open: '<a href="#' + obj.path + '" title="Open">Open</a>',
       runit: '<a href="' + obj.path + '" target="_blank" title="View">Run</a>',
-      dwnld: '<a href="?do=download&path=' + encodeURIComponent(obj.path) + '" title="Download">Download</a>',
-      edit: '<a href="?do=edit&path=' + encodeURIComponent(obj.path) + '" target="_blank" title="Edit">View / Edit</a>',
+      dwnld: '<a href="?do=download&size=' + obj.size + '&path=' + encodeURIComponent(obj.real_path) + '" title="Download">Download</a>',
+      edit: '<a href="?do=edit&path=' + encodeURIComponent(obj.real_path) + '" target="_blank" title="Edit">View / Edit</a>',
       copy: '<a class="copy" title="Copy">Copy</a>',
       move: '<a class="move" title="Move">Move</a>',
       rename: '<a class="rename" title="Rename">Rename</a>',
@@ -747,7 +756,7 @@ var menu_options = document.querySelector('.options');
       opt += obj.is_writable == 'true' ? menu.rename : '';
       opt += obj.is_zipable == 'true' ? menu.cmprss : '';
       opt += obj.is_zip == 'true' ? menu.extrct : '';
-      opt += obj.is_writable == 'true' ? menu.permit : '';
+      // opt += obj.is_writable == 'true' ? menu.permit : '';
       opt += menu.info;
     }
 
@@ -762,8 +771,6 @@ var menu_options = document.querySelector('.options');
       show_option_menu(e, opt);
     }
   }
-
-
 
 
   /* LISTINGS
@@ -829,8 +836,8 @@ var menu_options = document.querySelector('.options');
     var base = '',
       crumb = '<a href="#"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a>';
     $.each(path.split('/'), function (index, value) {
-      if (value && value !== STORAGE_PATH) {
-        crumb = crumb + '<a href="#'+ STORAGE_PATH + '/' + base + value + '">' + value + '</a>';
+      if (value) {
+        crumb = crumb + '<a href="#' + base + value + '">' + value + '</a>';
         base += value + '/'
       }
     });

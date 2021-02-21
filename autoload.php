@@ -15,5 +15,7 @@ $dotenv->load();
 
 $phpVer           = phpversion();
 $theme            = 'black';
-$storage_path     = 'storage';
+$storage_path     = $_ENV['FOLDER_NAME'];
 $max_upload_size  = min( inBytes( ini_get('post_max_size') ), inBytes( ini_get('upload_max_filesize') ) );
+
+$_ENV['AWS_FOLDER_NAME'] = $storage_path;
