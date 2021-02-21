@@ -3,43 +3,43 @@
 namespace App;
 
 use Exception;
-use Aws\S3\S3Client;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Visibility;
-use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
-use League\Flysystem\AwsS3V3\PortableVisibilityConverter;
 
 class Storage {
 
   protected $filesystem;
 
+  protected $adaptor;
+
+  protected $baseLink;
+
   public function __construct($setFolderPath = false) {
     if($setFolderPath) {
       $this->_setFolderPath();
     }
-    $client = new S3Client([
-      'credentials'   => [
-          'key'       => $_ENV['AWS_KEY'],
-          'secret'    => $_ENV['AWS_SECRET'],
-      ],
-      "region"    => $_ENV['AWS_REGION'],
-      "version"   => "latest",
-      "endpoint"  => $_ENV['AWS_ENDPOINT'],
-      "scheme"    => "https"
-    ]);
+    $this->_getAdaptor();
+    $this->filesystem = new Filesystem($this->adaptor);
+  }
 
-    $adapter = new AwsS3V3Adapter(
-        $client,
-        $_ENV['BUCKET_NAME'],
-        $_ENV['AWS_FOLDER_NAME']
-    );
-    $this->filesystem = new Filesystem($adapter);
-
-    $this->baseLink = $_ENV['AWS_ENDPOINT'].'/'.$_ENV['BUCKET_NAME'].'/'.$_ENV['AWS_FOLDER_NAME'].'/';
+  /***
+   * setting up adaptor
+   */
+  protected function _getAdaptor() {
+    switch ($_ENV['STORAGE_TYPE']) {
+      case 'aws':
+        $this->adaptor = \App\Adaptors\AwsAdaptor::get();
+        $this->baseLink = $_ENV['AWS_ENDPOINT'].'/'.$_ENV['BUCKET_NAME'].'/'.$_ENV['STORAGE_FOLDER_NAME'].'/';
+        break;
+      case 'local':
+        $this->adaptor = \App\Adaptors\LocalAdaptor::get();
+        $this->baseLink = 'storage/'.$_ENV['STORAGE_FOLDER_NAME'].'/';
+        break;
+    }
   }
 
   protected function _setFolderPath() {
-    $_ENV['AWS_FOLDER_NAME'] = empty($_REQUEST['path']) 
+    $_ENV['STORAGE_FOLDER_NAME'] = empty($_REQUEST['path']) 
       ? $_ENV['FOLDER_NAME'] 
       : $_ENV['FOLDER_NAME'].'/'.$_REQUEST['path'];
   }
@@ -64,7 +64,7 @@ class Storage {
           'size' => ($file->isFile()) ? $file->fileSize() : 0,
           // 'path' => $fp,
           'path' => ($file->isFile()) ? $this->baseLink.$fp : $fp,
-          'real_path' => $_ENV['AWS_FOLDER_NAME']. '/'. $fp,
+          'real_path' => $_ENV['STORAGE_FOLDER_NAME']. '/'. $fp,
           'name' => basename($fp),
           'type' => function_exists('mime_content_type') ? @mime_content_type($fp) : $ext,
           'ext'  => ($file->isDir()) ? '---' : $ext,
@@ -219,7 +219,7 @@ class Storage {
   }
 
   public function copy($isPrivate = false) {
-    $_ENV['AWS_FOLDER_NAME'] = $_ENV['FOLDER_NAME'];
+    $_ENV['STORAGE_FOLDER_NAME'] = $_ENV['FOLDER_NAME'];
 		$ways = $_POST['ways'];
 		if( is_array($ways) ){
 			foreach ($ways as $way) {
@@ -244,7 +244,7 @@ class Storage {
   }
 
   public function move($isPrivate = false) {
-    $_ENV['AWS_FOLDER_NAME'] = $_ENV['FOLDER_NAME'];
+    $_ENV['STORAGE_FOLDER_NAME'] = $_ENV['FOLDER_NAME'];
 		$ways = $_POST['ways'];
 
 		if( is_array($ways) ){

@@ -6,7 +6,7 @@ function html_login($label) {?>
       <title>File Explorer</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-      <link rel="stylesheet" href="assets/css/login.css">
+      <link rel="stylesheet" href="assets/css/login.css?version=<?php echo $_ENV['VERSION'] ?>">
     </head>
     <body>
       <main>

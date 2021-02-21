@@ -10,7 +10,7 @@ function html_editor($file){
       <title>Edit {<?= basename($file); ?>}</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-      <link rel="stylesheet" href="assets/css/editor.css">
+      <link rel="stylesheet" href="assets/css/editor.css?version=<?php echo $_ENV['VERSION'] ?>">
     </head>
     <body>
       <div class="overlay"></div>
@@ -41,7 +41,7 @@ function html_editor($file){
           <a target="_blank" href="https://gg.gg/contribute">Donate</a>
         </div>
       </footer>
-      <script src="assets/js/editor.js"></script>
+      <script src="assets/js/editor.js?version=<?php echo $_ENV['VERSION'] ?>"></script>
     </body>
   </html>
 <?php } ?>

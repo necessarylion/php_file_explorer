@@ -31,7 +31,7 @@ if( !isset($_SESSION['__allowed']) ) {
     const STORAGE_PATH = "<?php echo $storage_path ?>";
     const TOAST_SUCCESS_COLOR = '#2FCC70';
   </script>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?version=<?php echo $_ENV['VERSION'] ?>">
 </head>
 <body onload="toast('<?= @$welcome; ?>');">
   
@@ -47,7 +47,7 @@ if( !isset($_SESSION['__allowed']) ) {
   <?php include __DIR__."/components/models.php" ?>
 
 	<script src="assets/js/jquery.js"></script>
-	<script src="assets/js/home.js"></script>
+	<script src="assets/js/home.js?version=<?php echo $_ENV['VERSION'] ?>"></script>
 	
 </body>
 </html>
