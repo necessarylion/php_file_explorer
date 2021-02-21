@@ -749,11 +749,11 @@ var menu_options = document.querySelector('.options');
       opt += obj.is_dir == 'true' ? '' : menu.dwnld;
       opt += obj.is_editable == 'true' ? menu.edit : '';
     }
-    opt += obj.is_recursable == 'true' ? menu.copy : '';
-    opt += obj.is_recursable == 'true' ? menu.move : '';
+    opt += ( obj.is_recursable == 'true' && obj.is_dir != 'true' )? menu.copy : '';
+    opt += ( obj.is_recursable == 'true' && obj.is_dir != 'true' ) ? menu.move : '';
     opt += obj.is_deletable == 'true' ? menu.delete : '';
     if (!is_selected) {
-      opt += obj.is_writable == 'true' ? menu.rename : '';
+      opt += ( obj.is_writable == 'true' && obj.is_dir != 'true' ) ? menu.rename : '';
       opt += obj.is_zipable == 'true' ? menu.cmprss : '';
       opt += obj.is_zip == 'true' ? menu.extrct : '';
       // opt += obj.is_writable == 'true' ? menu.permit : '';
