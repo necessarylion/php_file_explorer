@@ -1,13 +1,8 @@
 # PHP File Explorer
 
+![Demo Image](assets/demo.png)
+
 #### There are 2 branches
-
-
-demo 
-
-- ![Demo Image](assets/demo.png)
-
-### Password (admin)
 
 - 1. master (for local storage) `git checkout master`
 - 2. aws-explorer (for AWS S3 storage) `git checkout aws-explorer`
@@ -42,3 +37,6 @@ create storage folder
 
 `mkdir storage`
 `sudo chmod 777 -R storage`
+
+
+### Password (admin)
