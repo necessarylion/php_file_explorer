@@ -37,3 +37,6 @@ create storage folder
 
 `mkdir storage`
 `sudo chmod 777 -R storage`
+
+
+This Explorer is modification of webcdn/File-Explorer https://github.com/webcdn/File-Explorer
