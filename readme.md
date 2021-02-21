@@ -42,3 +42,6 @@ FOLDER_NAME="my-guest-folder"
 ```
 
 ### Password : admin
+
+### NOTE
+This PHP File Explorer is modification of webcdn/File-Explorer (standalone) `https://github.com/webcdn/File-Explorer`
