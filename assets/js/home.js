@@ -150,7 +150,7 @@ var menu_options = document.querySelector('.options');
           list();
           docTitle();
           modal('off');
-          toast('Files Uploaded Successfully', '#070');
+          toast('Files Uploaded Successfully', TOAST_SUCCESS_COLOR);
           $modal.find('.body').empty();
         }, 2000);
       }
@@ -215,7 +215,7 @@ var menu_options = document.querySelector('.options');
     }, function (data) {
       list();
       modal('off');
-      toast(data.response, data.flag == true ? '#070' : '#B00');
+      toast(data.response, data.flag == true ? TOAST_SUCCESS_COLOR : '#B00');
       $form.find('input').val('');
     }, 'json');
   });
@@ -239,7 +239,7 @@ var menu_options = document.querySelector('.options');
     }, function (data) {
       list();
       modal('off');
-      toast(data.response, data.flag == true ? '#070' : '#B00');
+      toast(data.response, data.flag == true ? TOAST_SUCCESS_COLOR : '#B00');
       $form.find('input').val('');
     }, 'json');
   });
@@ -274,7 +274,7 @@ var menu_options = document.querySelector('.options');
     }, function (data) {
       list();
       modal('off');
-      toast(data.response, data.flag == true ? '#070' : '#B00');
+      toast(data.response, data.flag == true ? TOAST_SUCCESS_COLOR : '#B00');
     }, 'json');
   });
 
@@ -328,7 +328,7 @@ var menu_options = document.querySelector('.options');
       xsrf: XSRF
     }, function (data) {
       list();
-      toast(data.response, data.flag == true ? '#070' : '#B00');
+      toast(data.response, data.flag == true ? TOAST_SUCCESS_COLOR : '#B00');
       CLIPBOARD = false;
       DO_ACTION = false;
     }, 'json');
@@ -361,7 +361,7 @@ var menu_options = document.querySelector('.options');
         xsrf: XSRF
       }, function (data) {
         list();
-        toast(data.response, data.flag == true ? '#070' : '#B00');
+        toast(data.response, data.flag == true ? TOAST_SUCCESS_COLOR : '#B00');
         CLIPBOARD = false;
         DO_ACTION = false;
       }, 'json');
@@ -384,7 +384,7 @@ var menu_options = document.querySelector('.options');
     }, function (data) {
       if (data.flag == true) {
         list();
-        toast(data.response, '#070');
+        toast(data.response, TOAST_SUCCESS_COLOR);
       } else {
         toast(data.response, '#B00');
       }
@@ -408,7 +408,7 @@ var menu_options = document.querySelector('.options');
     }, function (data) {
       if (data.flag == true) {
         list();
-        toast(data.response, '#070');
+        toast(data.response, TOAST_SUCCESS_COLOR);
       } else {
         toast(data.response, '#B00');
       }
@@ -481,7 +481,7 @@ var menu_options = document.querySelector('.options');
     }, function (data) {
       list();
       modal('off');
-      toast(data.response, data.flag == true ? '#070' : '#B00');
+      toast(data.response, data.flag == true ? TOAST_SUCCESS_COLOR : '#B00');
       $('#perm_recursive_chk').prop('checked', false);
       $('[name="recurse"]').prop('checked', false).prop('disabled', false);
     }, 'json');
@@ -554,7 +554,7 @@ var menu_options = document.querySelector('.options');
       xsrf: XSRF
     }, function (data) {
       modal('off');
-      toast(data.response, data.flag == true ? '#070' : '#B00', 'stay');
+      toast(data.response, data.flag == true ? TOAST_SUCCESS_COLOR : '#B00', 'stay');
       window.setTimeout(function () {
         window.location.reload();
       }, 1000);
@@ -577,7 +577,7 @@ var menu_options = document.querySelector('.options');
         xsrf: XSRF
       }, function (data) {
         modal('off');
-        toast(data.response, data.flag == true ? '#070' : '#B00', 'stay');
+        toast(data.response, data.flag == true ? TOAST_SUCCESS_COLOR : '#B00', 'stay');
         window.setTimeout(function () {
           window.location.reload();
         }, 1000);
@@ -601,7 +601,7 @@ var menu_options = document.querySelector('.options');
         xsrf: XSRF
       }, function (data) {
         if (data.flag == true) {
-          toast(data.response, '#070', 'stay');
+          toast(data.response, TOAST_SUCCESS_COLOR, 'stay');
           window.setTimeout(function () {
             window.location.reload();
           }, 1000);
@@ -732,7 +732,7 @@ var menu_options = document.querySelector('.options');
     // MENU OPTIONS NOTE
     var menu = {
       open: '<a href="#' + obj.path + '" title="Open">Open</a>',
-      runit: '<a href="' + obj.path + '" target="_blank" title="View">Run</a>',
+      runit: '<a href="' + obj.path + '" target="_blank" title="View">View</a>',
       dwnld: '<a href="?do=download&size=' + obj.size + '&path=' + encodeURIComponent(obj.real_path) + '" title="Download">Download</a>',
       edit: '<a href="?do=edit&path=' + encodeURIComponent(obj.real_path) + '" target="_blank" title="Edit">View / Edit</a>',
       copy: '<a class="copy" title="Copy">Copy</a>',
@@ -834,7 +834,7 @@ var menu_options = document.querySelector('.options');
 
   function renderBreadcrumbs(path) {
     var base = '',
-      crumb = '<a href="#"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></a>';
+      crumb = '<a href="#"><svg id="Capa_1" enable-background="new 0 0 511.925 511.925" height="512" viewBox="0 0 511.925 511.925" width="512" xmlns="http://www.w3.org/2000/svg"><g id="_x30_8_home"><path d="m430.772 276.2v191.784c0 8.324-6.771 15.096-15.096 15.096h-11.63c-4.143 0-7.5 3.357-7.5 7.5s3.357 7.5 7.5 7.5h11.63c16.595 0 30.096-13.501 30.096-30.096v-176.17l15.266 15.891c6.894 7.176 18.337 7.298 25.381.254l20.338-20.339c6.792-6.79 6.904-17.95.25-24.877l-230.822-240.279c-11.035-11.487-29.402-11.497-40.445 0l-230.823 240.279c-6.653 6.926-6.541 18.086.25 24.877l20.339 20.339c7.038 7.036 18.479 6.93 25.382-.254l15.264-15.889v36.432c0 4.143 3.358 7.5 7.5 7.5s7.5-3.357 7.5-7.5v-52.047l169.108-176.038c3.11-3.237 8.282-3.246 11.404 0 134.776 140.297 108.094 112.523 169.108 176.037zm65.378.812-20.339 20.34c-1.33 1.095-2.649 1.082-3.957-.04l-199.372-207.539c-.001-.001-.001-.001-.002-.002-.01-.011-.021-.02-.031-.031-9.023-9.358-23.99-9.354-33.006.032l-171.2 178.213c-.004.004-.007.009-.011.013l-28.161 29.314c-1.308 1.122-2.628 1.135-3.958.039l-20.339-20.339c-1.059-1.059-1.076-2.799-.039-3.878l230.822-240.279c5.139-5.349 13.674-5.348 18.811.001l230.821 240.277c1.038 1.08 1.021 2.821-.039 3.879z"/><path d="m368.897 483.079h-44.493v-84.919c0-37.738-30.703-68.44-68.442-68.44-37.738 0-68.441 30.702-68.441 68.44v84.919h-91.273c-8.324 0-15.096-6.771-15.096-15.096v-104.736c0-4.143-3.358-7.5-7.5-7.5s-7.5 3.357-7.5 7.5v104.736c0 16.595 13.501 30.096 30.096 30.096h272.649c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5zm-166.376-84.918c0-29.467 23.974-53.44 53.441-53.44s53.441 23.974 53.441 53.44v84.919h-106.882z"/></g></svg></a>';
     $.each(path.split('/'), function (index, value) {
       if (value) {
         crumb = crumb + '<a href="#' + base + value + '">' + value + '</a>';

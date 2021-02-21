@@ -17,13 +17,19 @@ if( !isset($_SESSION['__allowed']) ) {
 	<title>File Explorer</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-primary: <?php echo $theme ?>;
     }
+    body {
+      font-family: 'Source Sans Pro', sans-serif;
+    }
   </style>
   <script>
     const STORAGE_PATH = "<?php echo $storage_path ?>";
+    const TOAST_SUCCESS_COLOR = '#2FCC70';
   </script>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>

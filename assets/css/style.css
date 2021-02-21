@@ -108,7 +108,7 @@
 	input[type=text]:focus,
 	input[type=email]:focus,
 	input[type=password]:focus {
-	  border: 1px solid #369;
+	  border: 1px solid var(--bg-primary);
 	}
 
 	input.disabled,
@@ -183,8 +183,8 @@
 	}
 
 	input[type=radio]:checked:after {
-	  background-color: #369;
-	  border-color: #369;
+	  background-color: var(--bg-primary);
+	  border-color: var(--bg-primary);
 	  -webkit-backface-visibility: hidden;
 	  backface-visibility: hidden;
 	}
@@ -196,7 +196,7 @@
 	  border-radius: 2px;
 	  border: 1px solid transparent;
 	  color: #fff;
-	  background-color: #369;
+	  background-color: var(--bg-primary);
 	  text-align: center;
 	  text-decoration: none;
 	  text-transform: uppercase;
@@ -422,8 +422,11 @@
 	  justify-content: space-between;
 	  color: #EEE;
 	  background-color: var(--bg-primary);
-	  -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-	  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+	  /* -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+	  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); */
+    border-radius: 10px 10px 10px 10px;
+    border: none;
+    margin: 5px 13px;
 	}
 
 	header * {
@@ -496,7 +499,6 @@
 
 	header nav {
 	  height: 4rem;
-	  background-color: rgba(0, 0, 0, 0.05);
 	}
 
 	header nav a {
@@ -513,22 +515,19 @@
 	  background-color: rgba(0, 0, 0, 0.2);
 	}
 
-	header nav a.toggle_view[title]:after {
-	  content: attr(title);
-	}
-
 	header nav a.toggle_view {
 	  width: 5rem;
 	  min-width: 5rem;
+    padding-top: 11px;
 	}
 
-	header nav a.toggle_view[title*=Grid] svg path {
-	  d: path("M3,3v8h8V3H3z M9,9H5V5h4V9z M3,13v8h8v-8H3z M9,19H5v-4h4V19z M13,3v8h8V3H13z M19,9h-4V5h4V9z M13,13v8h8v-8H13z M19,19h-4v-4h4V19z");
-	}
+  header nav a.toggle_view[title="List View"] .grid-view-icon {
+    display: none;
+  }
 
-	header nav a.toggle_view[title*=List] svg path {
-	  d: path("M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z");
-	}
+  header nav a.toggle_view[title="Grid View"] .list-view-icon {
+    display: none;
+  }
 
 	@media(max-width: 576px) {
 	  header {
@@ -540,6 +539,8 @@
 	    -ms-flex-align: start;
 	    align-items: flex-start;
 	    height: 7rem;
+      margin: 0; 
+      border-radius: 0;
 	  }
 
 	  header #breadcrumb {
@@ -569,6 +570,10 @@
 	  margin-top: 4.5rem;
 	  margin-bottom: 2.5rem;
 	}
+
+  main.listView {
+    padding: 0.5rem 1rem;
+  }
 
 	@media(max-width: 576px) {
 	  main {
@@ -613,8 +618,8 @@
 	  -webkit-transition: background-color 0.01s;
 	  -o-transition: background-color 0.01s;
 	  transition: background-color 0.01s;
-	  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.1);
-	  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.1);
+	  /* -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.1);
+	  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.1); */
 	}
 
 	main .item.hover a,
@@ -773,6 +778,7 @@
 
 	main.listView .item.tHead {
 	  padding-right: 2.5rem;
+    font-weight: bold;
 	}
 
 	main.listView .item.tHead span {
@@ -1027,7 +1033,7 @@
 	  position: absolute;
 	  z-index: 1;
 	  left: 0;
-	  background-color: #369;
+	  background-color: var(--bg-primary);
 	}
 
 	#progressModal li:not(.uploading) .progress>span {
@@ -1104,6 +1110,9 @@
 	  -webkit-box-shadow: inset 0 2px 3rem rgba(0, 0, 0, 0.5);
 	  box-shadow: inset 0 2px 3rem rgba(0, 0, 0, 0.5);
 	  font-size: 0.75rem;
+    border-radius: 5px;
+    border: none;
+    margin: 5px 13px 0px;
 	}
 
 	footer * {
