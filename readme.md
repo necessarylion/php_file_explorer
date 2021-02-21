@@ -19,6 +19,7 @@ step 3.
 
   - `mkdir storage`
   - `sudo chmod -R 777 storage`
+  - `cp .env.example .env`
   - set STORAGE_TYPE='local'
 
 ```
