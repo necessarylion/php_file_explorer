@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a541c8a9817b9f43ab3289e6b2dffeb5",
+    "content-hash": "74deb9699321e2ba414e53f5c7f40e54",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -532,6 +532,70 @@
                 "source": "https://github.com/thephpleague/flysystem-aws-s3-v3/tree/2.0.4"
             },
             "time": "2021-02-09T21:10:56+00:00"
+        },
+        {
+            "name": "league/flysystem-ftp",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem-ftp.git",
+                "reference": "cf8d8b9fd7afa09b39eac6b160a53cd55aae116a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-ftp/zipball/cf8d8b9fd7afa09b39eac6b160a53cd55aae116a",
+                "reference": "cf8d8b9fd7afa09b39eac6b160a53cd55aae116a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ftp": "*",
+                "league/flysystem": "^2.0.0",
+                "league/mime-type-detection": "^1.0.0",
+                "php": "^7.2 || ^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\Ftp\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frankdejonge.nl"
+                }
+            ],
+            "description": "FTP filesystem adapter for Flysystem.",
+            "keywords": [
+                "Flysystem",
+                "file",
+                "files",
+                "filesystem",
+                "ftp",
+                "ftpd"
+            ],
+            "support": {
+                "source": "https://github.com/thephpleague/flysystem-ftp/tree/2.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://offset.earth/frankdejonge",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/frankdejonge",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-02-09T20:59:18+00:00"
         },
         {
             "name": "league/mime-type-detection",

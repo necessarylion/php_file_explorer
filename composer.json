@@ -13,7 +13,8 @@
         "vlucas/phpdotenv": "^5.3",
         "aws/aws-sdk-php": "^3.173",
         "nesbot/carbon": "^2.45",
-        "league/flysystem-aws-s3-v3": "^2.0"
+        "league/flysystem-aws-s3-v3": "^2.0",
+        "league/flysystem-ftp": "^2.0"
     },
     "autoload": {
       "psr-4": {

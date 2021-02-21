@@ -42,6 +42,20 @@ BUCKET_NAME=
 FOLDER_NAME="my-guest-folder"
 ```
 
+- if you use FTP 
+  - copy .env.example to .env and write credentials in .env file
+  - `cp .env.example .env`
+  - set STORAGE_TYPE='ftp'
+
+```
+FOLDER_NAME='path/of/folder' eg-htdocs
+FTP_BASE_PATH=http://example.com
+FTP_HOST=ftpupload.net
+FTP_USERNAME=
+FTP_PASSWORD=
+FTP_PORT=21
+```
+
 ### Password : admin
 
 ### NOTE
