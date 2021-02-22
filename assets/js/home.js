@@ -663,7 +663,10 @@ var menu_options = document.querySelector('.options');
       }
       window.location.href = url;
     } else {
-      window.open(href, '_blank');
+      var link = $(this).attr('data-real_path');
+      var size = $(this).attr('data-size');
+      link = '?do=view&size='+size+'&path='+encodeURIComponent(link)
+      window.open(link, '_blank');
     }
     return false;
   });
@@ -732,7 +735,7 @@ var menu_options = document.querySelector('.options');
     // MENU OPTIONS NOTE
     var menu = {
       open: '<a href="#' + obj.path + '" title="Open">Open</a>',
-      runit: '<a href="' + obj.path + '" target="_blank" title="View">View</a>',
+      runit: '<a href=?do=view&size=' + obj.size + '&path="' + encodeURIComponent(obj.real_path) + '" target="_blank" title="View">View</a>',
       dwnld: '<a href="?do=download&size=' + obj.size + '&path=' + encodeURIComponent(obj.real_path) + '" title="Download">Download</a>',
       edit: '<a href="?do=edit&path=' + encodeURIComponent(obj.real_path) + '" target="_blank" title="Edit">View / Edit</a>',
       copy: '<a class="copy" title="Copy">Copy</a>',

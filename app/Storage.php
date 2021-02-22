@@ -5,6 +5,7 @@ namespace App;
 use Exception;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Visibility;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 
 class Storage {
 
@@ -14,12 +15,24 @@ class Storage {
 
   protected $baseLink;
 
+  protected $reader;
+
+  protected $viewableExtensions = [
+    'jpg', 'jpeg', 'png', 'gif', 'svg', 'mp4', 'mp3', 'mov',
+    'asp','aspx','c','cer','cfm','class','cpp','cs','csr','css','csv',
+    'dtd','fla','h','htm','html','java','js','jsp','json','log','lua','m',
+    'md','mht','pl','phps','phpx','py','sh','sln','sql','svg','swift','txt',
+    'vb','vcxproj','whtml','xcodeproj','xhtml','xml'
+  ];
+
   public function __construct($setFolderPath = false) {
     if($setFolderPath) {
       $this->_setFolderPath();
     }
     $this->_getAdaptor();
     $this->filesystem = new Filesystem($this->adaptor);
+    $localAdaptor = new LocalFilesystemAdapter(__DIR__.'/../storage/temp/');
+    $this->reader = new Filesystem($localAdaptor);
   }
 
   /***
@@ -122,15 +135,36 @@ class Storage {
     $stream = $this->filesystem->readStream($path);
     $file_extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
     $file_name      = basename($path);
+    $detector = new \League\MimeTypeDetection\FinfoMimeTypeDetector();
+    $mimeType = $detector->detectMimeType($path, $stream);
     header("Pragma: public");
     header("Expires: -1");
     header("Cache-Control: public, must-revalidate, post-check=0, pre-check=0");
     header("Content-Transfer-Encoding: binary");
-    header("Content-Type:application/" . $file_extension);
+    header("Content-Type:" . $mimeType);
     header('Content-Disposition: attachment; filename="' . $file_name . '"');
     header ("Cache-Control: must-revalidate, post-check=0, pre-check=0");
     header('Accept-Ranges: bytes');
     header('Content-Length: ' . $this->getSize());
+    fpassthru($stream);
+  }
+
+  public function view() {
+    $path   = $this->getPath();
+    $file_extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+    $stream = $this->filesystem->readStream($path);
+    $detector = new \League\MimeTypeDetection\FinfoMimeTypeDetector();
+    $mimeType = $detector->detectMimeType($path, $stream);
+    $file_name      = basename($path);
+    header("Pragma: public");
+    header("Expires: -1");
+    header("Cache-Control: public, must-revalidate, post-check=0, pre-check=0");
+    header("Content-Transfer-Encoding: binary");
+    header("Content-Type:" . $mimeType);
+    header('Content-Length: ' . $this->getSize());
+    header ("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header('Accept-Ranges: bytes');
+    header('Content-Disposition: inline; filename="' . $file_name . '"');
     fpassthru($stream);
   }
 

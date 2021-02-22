@@ -37,6 +37,13 @@ if( !empty($_REQUEST['do']) ){
 		exit;
 	}
 
+   // file download
+	if( @$_GET['do'] == 'view'){
+    $storage = new Storage();
+    $storage->view();
+		exit;
+	}
+
   // create new folder
   if( @$_POST['do'] == 'mkdir' ){
     $storage = new Storage(true);
