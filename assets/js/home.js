@@ -2,7 +2,7 @@ var XSRF = getCookie('__xsrf');
 var VERSION = document.querySelector('html').getAttribute('version');
 var CLIPBOARD = false;
 var DO_ACTION = false;
-var MAX_UPLOAD_SIZE = 0 | parseInt(document.querySelector('.maxSize').innerHTML);
+var MAX_UPLOAD_SIZE = 0 | (document.querySelector('.maxSize').innerHTML) * 1;
 var menu_options = document.querySelector('.options');
 
 (function ($) {
