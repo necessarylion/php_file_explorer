@@ -56,6 +56,21 @@ FTP_PASSWORD=
 FTP_PORT=21
 ```
 
+- if you use SFTP 
+  - copy .env.example to .env and write credentials in .env file
+  - `cp .env.example .env`
+  - set STORAGE_TYPE='sftp'
+
+```
+SFTP_HOST=
+SFTP_USERNAME=
+SFTP_PASSWORD=
+SFTP_PRIVATE_KEY=/.ssh/id_rsa.pub
+SFTP_PRIVATE_KEY_PASSPHRASE=
+SFTP_PORT=22
+SFTP_BASE_PATH=https://example.com
+```
+
 ### Password : admin
 
 ### NOTE

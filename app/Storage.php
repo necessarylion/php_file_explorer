@@ -39,6 +39,10 @@ class Storage {
         $this->adaptor = \App\Adaptors\FtpAdaptor::get();
         $this->baseLink = $_ENV['FTP_BASE_PATH'].'/';
         break;
+      case 'sftp':
+        $this->adaptor = \App\Adaptors\SftpAdaptor::get();
+        $this->baseLink = $_ENV['SFTP_BASE_PATH'].'/';
+        break;
     }
   }
 
