@@ -130,13 +130,15 @@ class Storage {
     fpassthru($stream);
   }
 
-  public function createDir() {
+  public function createDir($isPrivate = false) {
     $dir = trim( preg_replace('/[\<\>\:\"\/\\\|\?\*]/', '', @$_POST['dirname']), ' .');
 		if( in_array($dir, array('.', '..')) ) {
 			output(false, 'Invalid Attempt');
 		}
 		else {
-      $response = $this->filesystem->createDirectory($dir);
+      $response = $this->filesystem->createDirectory($dir, [
+        'visibility' => ($isPrivate) ? Visibility::PRIVATE: Visibility::PUBLIC
+      ]);
       output(true, 'Directory Created'); 
     }
   }
@@ -171,7 +173,9 @@ class Storage {
       $fileExists = $this->filesystem->fileExists($file);
       if(!$fileExists) {
         $this->filesystem->write($file, '', 
-          ['visibility' => ($isPrivate) ? Visibility::PRIVATE: Visibility::PUBLIC]);
+          [
+            'visibility' => ($isPrivate) ? Visibility::PRIVATE: Visibility::PUBLIC
+          ]);
           output(true, 'File Created');
       }
       else {
@@ -186,9 +190,11 @@ class Storage {
     return $response;
   }
 
-  public function writeContent($contents) {
+  public function writeContent($contents, $isPrivate = false) {
     $path = $this->getPath();
-    $this->filesystem->write($path, $contents);
+    $this->filesystem->write($path, $contents,  [
+      'visibility' => ($isPrivate) ? Visibility::PRIVATE: Visibility::PUBLIC
+    ]);
     output(true, 'File Saved Successfully');
   }
 

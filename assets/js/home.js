@@ -177,7 +177,7 @@ var menu_options = document.querySelector('.options');
   }
 
   function docTitle(str = null) {
-    document.title = typeof str == 'string' ? str : 'File Explorer v' + VERSION;
+    document.title = typeof str == 'string' ? str : 'File Explorer';
   }
 
   function renderFileUpload(file, index) {
