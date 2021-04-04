@@ -665,7 +665,7 @@ var menu_options = document.querySelector('.options');
     } else {
       var link = $(this).attr('data-real_path');
       var size = $(this).attr('data-size');
-      link = '?do=view&size='+size+'&path='+encodeURIComponent(link)
+      link = '?driveId='+DRIVE_ID+'&do=view&size='+size+'&path='+encodeURIComponent(link)
       window.open(link, '_blank');
     }
     return false;
@@ -735,9 +735,9 @@ var menu_options = document.querySelector('.options');
     // MENU OPTIONS NOTE
     var menu = {
       open: '<a href="#' + obj.path + '" title="Open">Open</a>',
-      runit: '<a href=?do=view&size=' + obj.size + '&path="' + encodeURIComponent(obj.real_path) + '" target="_blank" title="View">View</a>',
-      dwnld: '<a href="?do=download&size=' + obj.size + '&path=' + encodeURIComponent(obj.real_path) + '" title="Download">Download</a>',
-      edit: '<a href="?do=edit&path=' + encodeURIComponent(obj.real_path) + '" target="_blank" title="Edit">View / Edit</a>',
+      runit: '<a href=?driveId='+DRIVE_ID+'&do=view&size=' + obj.size + '&path=' + encodeURIComponent(obj.real_path) + ' target="_blank" title="View">View</a>',
+      dwnld: '<a href="?driveId='+DRIVE_ID+'&do=download&size=' + obj.size + '&path=' + encodeURIComponent(obj.real_path) + '" title="Download">Download</a>',
+      edit: '<a href="?driveId='+DRIVE_ID+'&do=edit&path=' + encodeURIComponent(obj.real_path) + '" target="_blank" title="Edit">View / Edit</a>',
       copy: '<a class="copy" title="Copy">Copy</a>',
       move: '<a class="move" title="Move">Move</a>',
       rename: '<a class="rename" title="Rename">Rename</a>',

@@ -108,7 +108,7 @@ class Storage {
     output(true, $files);
   }
 
-  public function upload($file, $isPrivate = false) {
+  public function upload($file, $isPrivate = true) {
     try {
       $stream = fopen($file['tmp_name'], 'r+');
       $this->filesystem->writeStream(
@@ -168,7 +168,7 @@ class Storage {
     fpassthru($stream);
   }
 
-  public function createDir($isPrivate = false) {
+  public function createDir($isPrivate = true) {
     $dir = trim( preg_replace('/[\<\>\:\"\/\\\|\?\*]/', '', @$_POST['dirname']), ' .');
 		if( in_array($dir, array('.', '..')) ) {
 			output(false, 'Invalid Attempt');
@@ -201,7 +201,7 @@ class Storage {
 		}
   }
 
-  public function createFile($isPrivate = false) {
+  public function createFile($isPrivate = true) {
     $fl = trim( preg_replace('/[\<\>\:\"\/\\\|\?\*]/', '', @$_POST['filename']), ' .');
 		if( in_array($fl, array('.', '..')) ) {
 			output(false, 'Invalid Attempt');
@@ -228,7 +228,7 @@ class Storage {
     return $response;
   }
 
-  public function writeContent($contents, $isPrivate = false) {
+  public function writeContent($contents, $isPrivate = true) {
     $path = $this->getPath();
     $this->filesystem->write($path, $contents,  [
       'visibility' => ($isPrivate) ? Visibility::PRIVATE: Visibility::PUBLIC
@@ -236,7 +236,7 @@ class Storage {
     output(true, 'File Saved Successfully');
   }
 
-  public function rename($isPrivate = false) {
+  public function rename($isPrivate = true) {
     $new = trim( preg_replace('/[\<\>\:\"\/\\\|\?\*]/', '', @$_POST['newname']), ' .');
 		if( in_array($new, array('.', '..')) ) {
 			output(false, 'Invalid Attempt');
@@ -266,7 +266,7 @@ class Storage {
     }
   }
 
-  public function copy($isPrivate = false) {
+  public function copy($isPrivate = true) {
     $_ENV['STORAGE_FOLDER_NAME'] = $_ENV['FOLDER_NAME'];
 		$ways = $_POST['ways'];
 		if( is_array($ways) ){
@@ -291,7 +291,7 @@ class Storage {
 		}
   }
 
-  public function move($isPrivate = false) {
+  public function move($isPrivate = true) {
     $_ENV['STORAGE_FOLDER_NAME'] = $_ENV['FOLDER_NAME'];
 		$ways = $_POST['ways'];
 

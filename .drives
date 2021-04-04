@@ -1,0 +1,43 @@
+[
+  {
+    "name" : "AWS Proptexx",
+    "folder_name" : "aws-file-explorer-test",
+    "type" : "aws",
+    "AWS_KEY" : "AKIAVI4ZF444LXI2YNEU",
+    "AWS_SECRET" : "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",
+    "AWS_ENDPOINT" : "https://s3.ap-southeast-1.amazonaws.com",
+    "AWS_REGION" : "ap-southeast-1",
+    "BUCKET_NAME" : "myproptexx",
+    "color": "#674ea7"
+  },
+  {
+    "name" : "Local Storage",
+    "folder_name" : "my-drive",
+    "type" : "local",
+    "color": "#FF5733"
+  },
+  {
+    "name" : "FTP Storage",
+    "folder_name" : "htdocs",
+    "type" : "ftp",
+    "color": "#DE3163",
+    "FTP_BASE_PATH" : "http://zinkyawkyaw.epizy.com",
+    "FTP_HOST" : "ftpupload.net",
+    "FTP_USERNAME" : "epiz_22276166",
+    "FTP_PASSWORD" : "ajaypitlaal",
+    "FTP_PORT" : 21
+  },
+  {
+    "name" : "SFTP Storage",
+    "folder_name" : "/var/www",
+    "type" : "sftp",
+    "color": "#FFBF00",
+    "SFTP_HOST" : "143.110.184.62",
+    "SFTP_USERNAME" : "necessarylion",
+    "SFTP_PASSWORD" : "2529google",
+    "SFTP_PRIVATE_KEY" : "",
+    "SFTP_PRIVATE_KEY_PASSPHRASE" : "",
+    "SFTP_PORT" : "22",
+    "SFTP_BASE_PATH" : "http://zinkyawkyaw.epizy.com"
+  }
+]
